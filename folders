@@ -1,0 +1,307 @@
+/vectox
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml
+│   │   ├── lint.yml
+│   │   └── release.yml
+│   └── ISSUE_TEMPLATE.md
+│
+├── boot/
+│   ├── limine/
+│   │   ├── limine.cfg
+│   │   ├── limine.sys
+│   │   ├── limine.bin
+│   │   └── limine-install.sh
+│   ├── entry/
+│   │   ├── entry.asm
+│   │   ├── boot_header.S
+│   │   └── setup.S
+│   ├── initrd/
+│   │   └── initramfs.cpio.gz
+│   └── config/
+│       ├── bootloader.json
+│       └── boot_params.cfg
+│
+├── kernel/
+│   ├── arch/
+│   │   └── x86_64/
+│   │       ├── cpu/
+│   │       │   ├── cpu.asm
+│   │       │   ├── cpuid.c
+│   │       │   └── msr.c
+│   │       ├── gdt/
+│   │       │   ├── gdt.c
+│   │       │   └── tss.c
+│   │       ├── interrupts/
+│   │       │   ├── idt.c
+│   │       │   ├── irq.c
+│   │       │   ├── exceptions.c
+│   │       │   └── isr.S
+│   │       ├── paging/
+│   │       │   ├── paging.c
+│   │       │   ├── paging_helpers.c
+│   │       │   └── pml4.c
+│   │       └── smp/
+│   │           ├── apic.c
+│   │           ├── lapic.c
+│   │           └── smp_init.c
+│   │
+│   ├── drivers/
+│   │   ├── pci/
+│   │   │   ├── pci.c
+│   │   │   ├── pci_ids.h
+│   │   │   └── pci_devices.c
+│   │   ├── usb/
+│   │   │   ├── usb_core.c
+│   │   │   ├── usb_hid.c
+│   │   │   └── usb_mass_storage.c
+│   │   ├── storage/
+│   │   │   ├── sata.c
+│   │   │   ├── nvme.c
+│   │   │   └── ext4_driver.c
+│   │   ├── input/
+│   │   │   ├── keyboard.c
+│   │   │   ├── mouse.c
+│   │   │   └── touchscreen.c
+│   │   ├── network/
+│   │   │   ├── ethernet.c
+│   │   │   └── wifi.c
+│   │   ├── video/
+│   │   │   ├── framebuffer/
+│   │   │   │   ├── fbdev.c
+│   │   │   │   ├── vbe.c
+│   │   │   │   ├── vesafb.c
+│   │   │   │   ├── simplefb.c
+│   │   │   │   └── include/
+│   │   │   │       └── fbdev.h
+│   │   │   │
+│   │   │   ├── gpu/
+│   │   │   │   ├── drm_core.c
+│   │   │   │   ├── gpu_device.c
+│   │   │   │   ├── modesetting.c
+│   │   │   │   ├── cmd_submission.c
+│   │   │   │   ├── memory_manager.c
+│   │   │   │   ├── gpu_accel.c
+│   │   │   │   ├── intel_gpu.c
+│   │   │   │   ├── amd_gpu.c
+│   │   │   │   ├── nvidia_gpu.c
+│   │   │   │   ├── drm_ioctl.c
+│   │   │   │   ├── kms.c
+│   │   │   │   └── include/
+│   │   │   │       ├── drm.h
+│   │   │   │       ├── gpu.h
+│   │   │   │       └── kms.h
+│   │   │   │
+│   │   │   ├── opengl/
+│   │   │   │   ├── gl_driver.c
+│   │   │   │   ├── shader_compiler.c
+│   │   │   │   ├── render_pipeline.c
+│   │   │   │   └── include/
+│   │   │   │       └── gl.h
+│   │   │   │
+│   │   │   └── utils/
+│   │   │       ├── pixel_formats.c
+│   │   │       ├── color_space.c
+│   │   │       └── include/
+│   │   │           └── video_utils.h
+│   │   └── ...
+│   │
+│   ├── fs/
+│   │   ├── vfs/
+│   │   │   ├── vfs.c
+│   │   │   ├── vfs_cache.c
+│   │   │   ├── vfs_inode.c
+│   │   │   └── vfs_mount.c
+│   │   ├── ext4/
+│   │   │   ├── ext4.c
+│   │   │   ├── ext4_inode.c
+│   │   │   ├── ext4_dir.c
+│   │   │   ├── ext4_alloc.c
+│   │   │   ├── ext4_super.c
+│   │   │   ├── ext4_journal.c
+│   │   │   └── ext4_xattr.c
+│   │   ├── tmpfs/
+│   │   │   ├── tmpfs.c
+│   │   │   └── tmpfs_inode.c
+│   │   ├── procfs/
+│   │   │   ├── procfs.c
+│   │   │   └── procfs_entries.c
+│   │   └── nfs/
+│   │       ├── nfs_client.c
+│   │       └── nfs_protocol.c
+│   │
+│   ├── mm/
+│   │   ├── heap/
+│   │   │   ├── heap.c
+│   │   │   └── heap_alloc.c
+│   │   ├── slab/
+│   │   │   ├── slab.c
+│   │   │   └── slab_cache.c
+│   │   ├── paging/
+│   │   │   ├── paging.c
+│   │   │   └── page_fault.c
+│   │   └── physmem/
+│   │       ├── physmem.c
+│   │       └── buddy_allocator.c
+│   │
+│   ├── scheduler/
+│   │   ├── scheduler.c
+│   │   ├── process.c
+│   │   ├── threads.c
+│   │   └── signals.c
+│   │
+│   ├── ipc/
+│   │   ├── message_queue.c
+│   │   ├── pipes.c
+│   │   └── shared_memory.c
+│   │
+│   ├── net/
+│   │   ├── stack.c
+│   │   ├── tcp.c
+│   │   ├── udp.c
+│   │   ├── arp.c
+│   │   └── socket.c
+│   │
+│   ├── security/
+│   │   ├── auth.c
+│   │   ├── sandbox.c
+│   │   └── selinux.c
+│   │
+│   ├── utils/
+│   │   ├── printk.c
+│   │   ├── string.c
+│   │   ├── crc.c
+│   │   ├── time.c
+│   │   ├── bitmap.c
+│   │   └── video_helpers.c
+│   │
+│   ├── cpp_api/
+│   │   ├── drivers/
+│   │   │   ├── keyboard.cpp
+│   │   │   ├── uart.cpp
+│   │   │   └── video/
+│   │   │       ├── framebuffer.cpp
+│   │   │       ├── gpu.cpp
+│   │   │       └── gl.cpp
+│   │   ├── fs/
+│   │   │   ├── ext4.cpp
+│   │   │   └── vfs.cpp
+│   │   ├── include/
+│   │   │   ├── keyboard.hpp
+│   │   │   ├── uart.hpp
+│   │   │   ├── video/
+│   │   │   │   ├── framebuffer.hpp
+│   │   │   │   ├── gpu.hpp
+│   │   │   │   └── gl.hpp
+│   │   │   ├── ext4.hpp
+│   │   │   └── vfs.hpp
+│   │   └── api.hpp
+│
+├── user/
+│   ├── shell/
+│   │   ├── shell.c
+│   │   ├── commands.c
+│   │   └── parser.c
+│   ├── init/
+│   │   ├── init.c
+│   │   ├── systemd_like.c
+│   │   └── services.c
+│   ├── apps/
+│   │   ├── hello_world.c
+│   │   ├── text_editor.c
+│   │   ├── file_manager.c
+│   │   └── gpu_test_app.c
+│   ├── libs/
+│   │   ├── libc/
+│   │   │   ├── stdio.c
+│   │   │   ├── stdlib.c
+│   │   │   └── string.c
+│   │   └── libmath/
+│   │       ├── math.c
+│   │       └── trig.c
+│   ├── graphics/
+│   │   ├── framebuffer_console.c
+│   │   └── gl_renderer.c
+│   └── include/
+│       ├── libc.h
+│       ├── libmath.h
+│       └── graphics.h
+│
+├── tools/
+│   ├── build/
+│   │   ├── deploy.sh
+│   │   ├── Makefile
+│   │   └── clean.sh
+│   ├── qemu/
+│   │   ├── qemu-run.sh
+│   │   ├── qemu-config.json
+│   │   └── snapshot_save.sh
+│   ├── utils/
+│   │   ├── fontMng.c
+│   │   ├── fontMng.h
+│   │   ├── bin2c.c
+│   │   ├── checksum.c
+│   │   ├── other_util1.c
+│   │   └── other_util2.c
+│   ├── scripts/
+│   │   ├── generate_headers.py
+│   │   ├── create_initrd.py
+│   │   └── update_version.sh
+│   └── include/
+│       └── tools.h
+│
+├── data/
+│   ├── fonts/
+│   │   ├── default_font.bin
+│   │   ├── monospace.ttf
+│   │   └── unicode_map.json
+│   ├── configs/
+│   │   ├── kernel_config.json
+│   │   ├── hardware_profile.json
+│   │   ├── ui_theme.json
+│   │   ├── network_config.yaml
+│   │   └── locale_settings.ini
+│   ├── firmware/
+│   │   ├── wifi_firmware.bin
+│   │   └── gpu_firmware.bin
+│   ├── scripts/
+│   │   ├── setup_env.sh
+│   │   └── generate_headers.py
+│   ├── locales/
+│   │   ├── en_US.json
+│   │   ├── de_DE.json
+│   │   └── fr_FR.json
+│   └── icons/
+│       ├── boot_icon.bmp
+│       ├── folder_icon.png
+│       └── app_icon.svg
+│
+├── tests/
+│   ├── kernel/
+│   │   ├── cpu_tests.c
+│   │   ├── paging_tests.c
+│   │   ├── scheduler_tests.c
+│   │   └── driver_tests/
+│   │       ├── keyboard_tests.c
+│   │       └── uart_tests.c
+│   ├── user/
+│   │   ├── shell_tests.c
+│   │   └── apps_tests.c
+│   ├── integration/
+│   │   ├── vfs_integration_tests.c
+│   │   ├── ext4_integration_tests.c
+│   │   └── network_integration_tests.c
+│   └── cpp_api_tests.cpp
+│
+├── docs/
+│   ├── architecture.md
+│   ├── api_reference.md
+│   ├── design_decisions.md
+│   ├── contributing.md
+│   └── changelog.md
+│
+├── .gitignore
+├── LICENSE
+├── Makefile
+├── README.md
+└── linker.ld
