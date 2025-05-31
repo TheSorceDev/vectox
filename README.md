@@ -1,4 +1,4 @@
-# vectox
+# VECTOX
 
 ## Work in Progress
 
