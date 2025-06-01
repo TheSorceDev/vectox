@@ -34,4 +34,4 @@ Vectox is a modern, lightweight 64-bit hobbyist operating system designed for pe
 ### Building
 
 ```bash
-make all
+make
