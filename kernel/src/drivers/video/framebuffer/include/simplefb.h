@@ -6,6 +6,7 @@
 void SimpleFBInit(void);
 void SimpleFBDraw(VPoint p, VColor col);
 VRect SimpleFBGetSize(void);
+VColor SimpleFBGetPixel(VPoint p);
 void SimpleFBSwap(void);
 
 #endif

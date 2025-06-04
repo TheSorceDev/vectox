@@ -41,6 +41,15 @@ VRect SimpleFBGetSize(void) {
     return VMKRect(width, height);
 }
 
+VColor SimpleFBGetPixel(VPoint p) {
+    if (p.x >= width || p.y >= height) {
+        return 0;
+    }
+
+    uint32_t *buffer = (uint32_t *)backbuffer;
+    return buffer[p.y * width + p.x];
+}
+
 // Swaping the Backbuffer with the Framebuffer - TSD
 void SimpleFBSwap(void) {
     uint8_t *fb_addr = (uint8_t *)framebuffer->address;
